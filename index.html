@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AlugaDrive — Aluguel de Carros e Motos</title>
+  <meta name="description" content="Aluguel de carros e motos com planos flexíveis, assistência 24h e reserva rápida.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="logo" href="#">AlugaDrive</a>
+
+      <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-label="Abrir menu">
+      <label for="nav-toggle" class="nav-toggle-btn" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </label>
+
+      <nav class="main-nav" aria-label="Principal">
+        <ul>
+          <li><a href="#inicio">Início</a></li>
+          <li><a href="#frota">Frota</a></li>
+          <li><a href="#como-funciona">Como funciona</a></li>
+          <li><a href="#planos">Planos</a></li>
+          <li><a href="#contato" class="btn btn--sm">Reservar</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="location-banner">
+      <div class="container">
+        <span class="location-icon" aria-hidden="true">📍</span>
+        <span id="user-location">Localizando sua região...</span>
+      </div>
+    </div>
+  </header>
+
+  <main id="inicio">
+    <section class="hero container">
+      <div class="hero__content">
+        <h1>Alugue carros populares e motos por semana</h1>
+        <p>Planos semanais econômicos: motos a partir de R$ 299/semana e carros populares com preços baixos. Seguro incluído e assistência 24h.</p>
+        <div class="hero__cta">
+          <a href="#frota" class="btn">Ver frota</a>
+          <a href="#como-funciona" class="btn btn--ghost">Como funciona</a>
+        </div>
+        <ul class="hero__badges">
+          <li>✔ Planos semanais a partir de R$ 299</li>
+          <li>✔ Populares econômicos</li>
+          <li>✔ Retirada rápida</li>
+        </ul>
+      </div>
+      <div class="hero__media">
+        <img src="https://images.unsplash.com/photo-1502877338535-766e1452684a?q=80&w=1600&auto=format&fit=crop" alt="Carro moderno para aluguel" loading="lazy">
+        <img class="hero__media--float" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200&auto=format&fit=crop" alt="Moto para aluguel" loading="lazy">
+      </div>
+    </section>
+
+    <section class="features container" aria-label="Benefícios">
+      <div class="section-head">
+        <h2>Por que escolher a AlugaDrive</h2>
+        <p>Transparência, qualidade e praticidade para sua locomoção.</p>
+      </div>
+      <div class="grid grid-4">
+        <article class="card feature">
+          <div class="icon" aria-hidden="true">🚗</div>
+          <h3>Reserva rápida</h3>
+          <p>Escolha, confirme e retire. Tudo em poucos cliques.</p>
+        </article>
+        <article class="card feature">
+          <div class="icon" aria-hidden="true">🛡️</div>
+          <h3>Seguro incluído</h3>
+          <p>Planos com cobertura para você dirigir tranquilo.</p>
+        </article>
+        <article class="card feature">
+          <div class="icon" aria-hidden="true">🧰</div>
+          <h3>Frota revisada</h3>
+          <p>Veículos inspecionados regularmente e prontos para rodar.</p>
+        </article>
+        <article class="card feature">
+          <div class="icon" aria-hidden="true">⏱️</div>
+          <h3>Retirada ágil</h3>
+          <p>Processo descomplicado para você não perder tempo.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="frota" class="fleet container" aria-label="Frota disponível">
+      <div class="section-head">
+        <h2>Nossa frota</h2>
+        <p>Carros populares e motos com preços semanais econômicos.</p>
+      </div>
+      <div class="grid grid-3">
+        <article class="card vehicle">
+          <div class="vehicle__media">
+            <img src="https://images.unsplash.com/photo-1549921296-3ecf9c8d161c?q=80&w=1200&auto=format&fit=crop" alt="Renault Kwid branco" loading="lazy">
+          </div>
+          <div class="vehicle__body">
+            <h3>Renault Kwid</h3>
+            <p>Econômico e perfeito para a cidade.</p>
+            <div class="vehicle__meta">
+              <span class="price">R$ 399/semana</span>
+              <a href="#contato" class="btn btn--sm">Reservar</a>
+            </div>
+          </div>
+        </article>
+        <article class="card vehicle">
+          <div class="vehicle__media">
+            <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?q=80&w=1200&auto=format&fit=crop" alt="Fiat Mobi vermelho" loading="lazy">
+          </div>
+          <div class="vehicle__body">
+            <h3>Fiat Mobi</h3>
+            <p>Compacto, ágil e econômico.</p>
+            <div class="vehicle__meta">
+              <span class="price">R$ 419/semana</span>
+              <a href="#contato" class="btn btn--sm">Reservar</a>
+            </div>
+          </div>
+        </article>
+        <article class="card vehicle">
+          <div class="vehicle__media">
+            <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?q=80&w=1200&auto=format&fit=crop" alt="Volkswagen Gol azul" loading="lazy">
+          </div>
+          <div class="vehicle__body">
+            <h3>Volkswagen Gol</h3>
+            <p>Confiável e pronto para o dia a dia.</p>
+            <div class="vehicle__meta">
+              <span class="price">R$ 449/semana</span>
+              <a href="#contato" class="btn btn--sm">Reservar</a>
+            </div>
+          </div>
+        </article>
+        <article class="card vehicle">
+          <div class="vehicle__media">
+            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?q=80&w=1200&auto=format&fit=crop" alt="Honda Fan 160 preta" loading="lazy">
+          </div>
+          <div class="vehicle__body">
+            <h3>Honda Fan 160</h3>
+            <p>Economia com conforto para o dia a dia.</p>
+            <div class="vehicle__meta">
+              <span class="price">R$ 299/semana</span>
+              <a href="#contato" class="btn btn--sm">Reservar</a>
+            </div>
+          </div>
+        </article>
+        <article class="card vehicle">
+          <div class="vehicle__media">
+            <img src="https://images.unsplash.com/photo-1519583230906-dfdb3a1c8d56?q=80&w=1200&auto=format&fit=crop" alt="Honda Titan 160 vermelha" loading="lazy">
+          </div>
+          <div class="vehicle__body">
+            <h3>Honda Titan 160</h3>
+            <p>Força e economia na medida certa.</p>
+            <div class="vehicle__meta">
+              <span class="price">R$ 325/semana</span>
+              <a href="#contato" class="btn btn--sm">Reservar</a>
+            </div>
+          </div>
+        </article>
+        <article class="card vehicle">
+          <div class="vehicle__media">
+            <img src="https://images.unsplash.com/photo-1526328828355-8ecf6ae8e90a?q=80&w=1200&auto=format&fit=crop" alt="Honda Bros 160" loading="lazy">
+          </div>
+          <div class="vehicle__body">
+            <h3>Honda Bros 160</h3>
+            <p>Versátil para cidade e estrada de terra.</p>
+            <div class="vehicle__meta">
+              <span class="price">R$ 325/semana</span>
+              <a href="#contato" class="btn btn--sm">Reservar</a>
+            </div>
+          </div>
+        </article>
+        <article class="card vehicle">
+          <div class="vehicle__media">
+            <img src="https://images.unsplash.com/photo-1593941707874-ef25b8b0924d?q=80&w=1200&auto=format&fit=crop" alt="Honda XRE 300" loading="lazy">
+          </div>
+          <div class="vehicle__body">
+            <h3>Honda XRE 300</h3>
+            <p>Conforto e robustez para qualquer trajeto.</p>
+            <div class="vehicle__meta">
+              <span class="price">R$ 389/semana</span>
+              <a href="#contato" class="btn btn--sm">Reservar</a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="como-funciona" class="how container" aria-label="Como funciona">
+      <div class="section-head">
+        <h2>Como funciona</h2>
+        <p>Alugar é simples — siga os passos e pegue a estrada.</p>
+      </div>
+      <ol class="steps">
+        <li>
+          <span class="step-number">1</span>
+          <h3>Escolha o veículo</h3>
+          <p>Veja modelos, preços e encontre o ideal para você.</p>
+        </li>
+        <li>
+          <span class="step-number">2</span>
+          <h3>Selecione as datas</h3>
+          <p>Defina início e fim da sua locação com flexibilidade.</p>
+        </li>
+        <li>
+          <span class="step-number">3</span>
+          <h3>Confirme seus dados</h3>
+          <p>Preencha informações essenciais de forma segura.</p>
+        </li>
+        <li>
+          <span class="step-number">4</span>
+          <h3>Retire e aproveite</h3>
+          <p>Retire rapidamente e conte com assistência 24h.</p>
+        </li>
+      </ol>
+    </section>
+
+    <section id="planos" class="pricing container" aria-label="Planos de preços">
+      <div class="section-head">
+        <h2>Planos semanais econômicos</h2>
+        <p>Valores acessíveis para motos e carros populares.</p>
+      </div>
+      <div class="grid grid-3">
+        <article class="card price">
+          <h3>Semana Econômica</h3>
+          <p class="subtitle">Motos 160cc</p>
+          <p class="price__value">a partir de <strong>R$ 299/semana</strong></p>
+          <ul class="list">
+            <li>Quilometragem básica</li>
+            <li>Seguro incluído</li>
+            <li>Fan 160 e Titan 160</li>
+          </ul>
+          <a href="#contato" class="btn btn--full">Escolher plano</a>
+        </article>
+        <article class="card price price--featured">
+          <h3>Semana Conforto</h3>
+          <p class="subtitle">Carros populares</p>
+          <p class="price__value">a partir de <strong>R$ 399/semana</strong></p>
+          <ul class="list">
+            <li>Km ampliada</li>
+            <li>Seguro completo</li>
+            <li>Kwid, Mobi e Gol</li>
+          </ul>
+          <a href="#contato" class="btn btn--full">Escolher plano</a>
+        </article>
+        <article class="card price">
+          <h3>Semana Premium</h3>
+          <p class="subtitle">Motos e carros especiais</p>
+          <p class="price__value">a partir de <strong>R$ 589/semana</strong></p>
+          <ul class="list">
+            <li>Km livre</li>
+            <li>Seguro VIP</li>
+            <li>XRE 300 e sedãs</li>
+          </ul>
+          <a href="#contato" class="btn btn--full">Escolher plano</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="testimonials container" aria-label="Depoimentos">
+      <div class="section-head">
+        <h2>Clientes satisfeitos</h2>
+        <p>Quem alugou, recomenda.</p>
+      </div>
+      <div class="grid grid-3">
+        <blockquote class="card quote">
+          <p>“Processo muito rápido e sem dor de cabeça. Carro novo e limpo.”</p>
+          <footer>★★★★★ — Ana M.</footer>
+        </blockquote>
+        <blockquote class="card quote">
+          <p>“Peguei uma moto por 3 dias e economizei muito. Recomendo!”</p>
+          <footer>★★★★★ — Carlos T.</footer>
+        </blockquote>
+        <blockquote class="card quote">
+          <p>“Atendimento excelente e retirada super ágil no aeroporto.”</p>
+          <footer>★★★★★ — Júlia S.</footer>
+        </blockquote>
+      </div>
+    </section>
+
+    <section id="contato" class="contact container" aria-label="Contato e reserva">
+      <div class="section-head">
+        <h2>Fale com a gente</h2>
+        <p>Envie sua solicitação de reserva. Retornaremos rapidamente.</p>
+      </div>
+      <form class="card form" action="#" method="get">
+        <div class="form__row">
+          <div class="form__field">
+            <label for="nome">Nome</label>
+            <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+          </div>
+          <div class="form__field">
+            <label for="email">E-mail</label>
+            <input type="email" id="email" name="email" placeholder="voce@email.com" required>
+          </div>
+        </div>
+        <div class="form__row">
+          <div class="form__field">
+            <label for="categoria">Categoria</label>
+            <select id="categoria" name="categoria" required>
+              <option value="">Selecione</option>
+              <option value="carro">Carro</option>
+              <option value="moto">Moto</option>
+            </select>
+          </div>
+          <div class="form__field">
+            <label for="inicio">Início</label>
+            <input type="date" id="inicio" name="inicio" required>
+          </div>
+          <div class="form__field">
+            <label for="fim">Fim</label>
+            <input type="date" id="fim" name="fim" required>
+          </div>
+        </div>
+        <div class="form__actions">
+          <button class="btn btn--full" type="submit">Enviar solicitação</button>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer__content">
+      <div>
+        <a class="logo" href="#">AlugaDrive</a>
+        <p class="footer__text">© <span id="year">2025</span> AlugaDrive. Todos os direitos reservados.</p>
+      </div>
+      <ul class="footer__links">
+        <li><a href="#como-funciona">Como funciona</a></li>
+        <li><a href="#planos">Planos</a></li>
+        <li><a href="#contato">Contato</a></li>
+      </ul>
+    </div>
+  </footer>
+  <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore-compat.js"></script>
+  <script defer src="firebase-init.js"></script>
+  <script defer src="app.js"></script>
+</body>
+</html>
+
