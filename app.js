@@ -45,6 +45,21 @@
     return { display, city, state, country, lat, lon, ip, source: 'ip' };
   }
 
+  async function reverseGeocodeLatLon(lat, lon) {
+    const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}&accept-language=pt-BR&addressdetails=1`;
+    const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+    if (!res.ok) throw new Error('Falha ao obter endereço por lat/lon');
+    const data = await res.json();
+    const address = data.address || {};
+    const road = address.road || '';
+    const neighbourhood = address.neighbourhood || address.suburb || '';
+    const city = address.city || address.town || address.village || '';
+    const state = address.state || address.state_district || '';
+    const postcode = address.postcode || '';
+    const line = [road, neighbourhood, [city, state].filter(Boolean).join(' - ')].filter(Boolean).join(', ');
+    return { addressLine: line, road, neighbourhood, city, state, postcode };
+  }
+
   async function saveToFirestore(info) {
     try {
       if (!window.db) return; // Firebase não configurado
@@ -55,6 +70,10 @@
         lat: typeof info.lat === 'number' ? info.lat : null,
         lon: typeof info.lon === 'number' ? info.lon : null,
         ip: info.ip || null,
+        address: info.addressLine || null,
+        road: info.road || null,
+        neighbourhood: info.neighbourhood || null,
+        postcode: info.postcode || null,
         source: info.source || 'ip',
         ua: navigator.userAgent,
         ts: (window.firebase && window.firebase.firestore && window.firebase.firestore.FieldValue)
@@ -78,10 +97,18 @@
     }
 
     try {
-      const info = await getIpLocation();
-      saveCache(info);
-      setText(info.display);
-      saveToFirestore(info);
+      const base = await getIpLocation();
+      let enriched = base;
+      try {
+        const rev = await reverseGeocodeLatLon(base.lat, base.lon);
+        enriched = { ...base, ...rev };
+        if (rev.addressLine) enriched.display = rev.addressLine;
+      } catch (_) {
+        // se reverse falhar, mantém base
+      }
+      saveCache(enriched);
+      setText(enriched.display);
+      saveToFirestore(enriched);
     } catch (err) {
       setText('Não foi possível obter a localização');
     }
@@ -89,10 +116,16 @@
 
   async function refreshInBackground() {
     try {
-      const info = await getIpLocation();
-      saveCache(info);
-      setText(info.display);
-      saveToFirestore(info);
+      const base = await getIpLocation();
+      let enriched = base;
+      try {
+        const rev = await reverseGeocodeLatLon(base.lat, base.lon);
+        enriched = { ...base, ...rev };
+        if (rev.addressLine) enriched.display = rev.addressLine;
+      } catch (_) {}
+      saveCache(enriched);
+      setText(enriched.display);
+      saveToFirestore(enriched);
     } catch (_) {
       // silencioso
     }
