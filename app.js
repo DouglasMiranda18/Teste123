@@ -3,7 +3,7 @@
   if (!locationElement) return;
 
   const STORAGE_KEY = 'alugadrive:userLocation';
-  const CACHE_TTL_MS = 6 * 60 * 60 * 1000; // 6 horas
+  const CACHE_TTL_MS = 30 * 60 * 1000; // 30 minutos
 
   function setText(text) {
     locationElement.textContent = text;
@@ -30,24 +30,49 @@
     }
   }
 
-  async function getIpLocation() {
-    const res = await fetch('https://ipwho.is/?lang=pt-BR');
-    if (!res.ok) throw new Error('Falha IP geolocation');
+  async function getIpLocationIpwho() {
+    const res = await fetch('https://ipwho.is/?lang=pt-BR', { mode: 'cors' });
+    if (!res.ok) throw new Error('Falha IP ipwho');
     const data = await res.json();
-    if (!data.success) throw new Error('IP geolocation sem sucesso');
-    const city = data.city || '';
-    const state = data.region || '';
-    const country = data.country || '';
-    const lat = data.latitude;
-    const lon = data.longitude;
-    const ip = data.ip || '';
-    const display = (city && state) ? `${city} - ${state}` : (city || state || country || 'Localização detectada');
-    return { display, city, state, country, lat, lon, ip, source: 'ip' };
+    if (!data.success) throw new Error('ipwho sem sucesso');
+    return {
+      city: data.city || '',
+      state: data.region || '',
+      country: data.country || '',
+      lat: data.latitude,
+      lon: data.longitude,
+      ip: data.ip || ''
+    };
+  }
+
+  async function getIpLocationIpapi() {
+    const res = await fetch('https://ipapi.co/json/');
+    if (!res.ok) throw new Error('Falha IP ipapi');
+    const data = await res.json();
+    return {
+      city: data.city || '',
+      state: data.region || '',
+      country: data.country_name || data.country || '',
+      lat: data.latitude,
+      lon: data.longitude,
+      ip: data.ip || ''
+    };
+  }
+
+  async function getIpLocation() {
+    let base;
+    try {
+      base = await getIpLocationIpwho();
+    } catch (_) {
+      base = await getIpLocationIpapi();
+    }
+    const display = (base.city && base.state) ? `${base.city} - ${base.state}` : (base.city || base.state || base.country || 'Localização detectada');
+    return { ...base, display, source: 'ip' };
   }
 
   async function reverseGeocodeLatLon(lat, lon) {
     const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${encodeURIComponent(lat)}&lon=${encodeURIComponent(lon)}&accept-language=pt-BR&addressdetails=1`;
-    const res = await fetch(url, { headers: { 'Accept': 'application/json' } });
+    const res = await fetch(url, { headers: { 'Accept': 'application/json' }, mode: 'cors' });
     if (!res.ok) throw new Error('Falha ao obter endereço por lat/lon');
     const data = await res.json();
     const address = data.address || {};
@@ -63,7 +88,7 @@
   async function saveToFirestore(info) {
     try {
       if (!window.db) return; // Firebase não configurado
-      await window.db.collection('entradas').add({
+      const payload = {
         city: info.city || null,
         state: info.state || null,
         country: info.country || null,
@@ -79,7 +104,9 @@
         ts: (window.firebase && window.firebase.firestore && window.firebase.firestore.FieldValue)
           ? window.firebase.firestore.FieldValue.serverTimestamp()
           : new Date()
-      });
+      };
+      const docRef = await window.db.collection('entradas').add(payload);
+      try { localStorage.setItem('alugadrive:lastEntryId', docRef.id); } catch (_) {}
     } catch (_) {
       // silencioso
     }
